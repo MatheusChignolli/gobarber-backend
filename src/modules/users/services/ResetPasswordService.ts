@@ -1,15 +1,13 @@
 import { injectable, inject } from 'tsyringe';
-import { differenceInHours } from 'date-fns'
-import AppError from '@shared/errors/AppErros';
-// import User from '../infra/typeorm/entities/Users';
-import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+import { differenceInHours } from 'date-fns';
+import AppError from '@shared/errors/AppErrors';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider'
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
   token: string;
-  password: string
+  password: string;
 }
 
 @injectable()
@@ -29,24 +27,24 @@ class ResetPasswordService {
     const userToken = await this.userTokensRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError('User token does not exist')
+      throw new AppError('User token does not exist');
     }
 
-    const user = await this.usersRepository.findById(userToken?.user_id)
+    const user = await this.usersRepository.findById(userToken?.user_id);
 
     if (!user) {
-      throw new AppError('User does not exist')
+      throw new AppError('User does not exist');
     }
 
-    const hoursDifference = differenceInHours(Date.now(), userToken.created_at)
+    const hoursDifference = differenceInHours(Date.now(), userToken.created_at);
 
     if (hoursDifference > 2) {
-      throw new AppError('Token expired')
+      throw new AppError('Token expired');
     }
 
-    user.password = await this.hashProvider.generateHash(password)
+    user.password = await this.hashProvider.generateHash(password);
 
-    await this.usersRepository.save(user)
+    await this.usersRepository.save(user);
   }
 }
 
