@@ -1,6 +1,9 @@
 .idea/
 .vscode/
+.env
 node_modules/
 build/
 tmp/*
 !tmp/.gitkeep
+postgres-data/
+coverage/
