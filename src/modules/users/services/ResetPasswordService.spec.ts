@@ -1,4 +1,4 @@
-import AppError from '@shared/errors/AppErros';
+import AppError from '@shared/errors/AppErrors';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeUsersTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
@@ -80,7 +80,7 @@ describe('ResetPasswordService', () => {
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       const date = new Date();
 
-      return date.setHours(date.getHours() + 3)
+      return date.setHours(date.getHours() + 3);
     });
 
     await expect(

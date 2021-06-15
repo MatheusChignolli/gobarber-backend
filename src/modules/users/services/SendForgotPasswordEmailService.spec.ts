@@ -1,4 +1,4 @@
-import AppError from '@shared/errors/AppErros';
+import AppError from '@shared/errors/AppErrors';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeUsersTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
