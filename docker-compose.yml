@@ -1,26 +1,9 @@
-version: '3'
+version: '3.1'
+
 services:
-  go-barber-postgres:
+  postgress-db:
     image: postgres
+    restart: always
     environment:
-      POSTGRES_PASSWORD: admin
-    ports:
-      - '15432:5432'
-    volumes:
-      - './postgres-data:/var/lib/postgresql'
-    networks:
-      - postgres-compose-network
-  go-barber-pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - '16543:80'
-    depends_on:
-      - go-barber-postgres
-    networks:
-      - postgres-compose-network
-networks:
-  postgres-compose-network:
-    driver: bridge
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
