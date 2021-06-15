@@ -2,22 +2,28 @@ import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRe
 import ListAppointmentsService from './ListAppointmentsService';
 import CreateAppointmentService from './CreateAppointmentService';
 
+let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let createAppointment: CreateAppointmentService;
+
 describe('CreateAppointment', () => {
-  it('should be able to list appointments', async () => {
-    const fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    const createAppointments = new CreateAppointmentService(
+  beforeEach(() => {
+    fakeAppointmentsRepository = new FakeAppointmentsRepository();
+    createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
     );
+  });
+
+  it('should be able to list appointments', async () => {
     const listAppointments = new ListAppointmentsService(
       fakeAppointmentsRepository,
     );
 
-    await createAppointments.execute({
+    await createAppointment.execute({
       date: new Date(2020, 4, 10, 11),
       provider_id: '123456789',
     });
 
-    await createAppointments.execute({
+    await createAppointment.execute({
       date: new Date(2020, 5, 10, 11),
       provider_id: '987654321',
     });
