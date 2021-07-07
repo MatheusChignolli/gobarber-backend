@@ -41,21 +41,21 @@ class UpdateProfileService {
       throw new AppError('E-mail already in use');
     }
 
-    if (password) {
-      if (old_password) {
-        const isOldPasswordRight = await this.hashProvider.compareHash(
-          user.password,
-          old_password,
-        );
+    if (password && !old_password) {
+      throw new AppError('You need to inform the old password');
+    }
 
-        if (!isOldPasswordRight) {
-          throw new AppError('Old password is wrong');
-        }
+    if (password && old_password) {
+      const checkOldPassword = await this.hashProvider.compareHash(
+        user.password,
+        old_password,
+      );
 
-        user.password = await this.hashProvider.generateHash(password);
-      } else {
-        throw new AppError('Old password is required');
+      if (!checkOldPassword) {
+        throw new AppError('You need to inform the old password');
       }
+
+      user.password = await this.hashProvider.generateHash(password);
     }
 
     user.name = name;
