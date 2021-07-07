@@ -61,7 +61,11 @@ class UpdateProfileService {
     user.name = name;
     user.email = email;
 
-    return this.UsersRepository.save(user);
+    const updatedUser = await this.UsersRepository.save(user);
+
+    delete updatedUser.password;
+
+    return updatedUser;
   }
 }
 
