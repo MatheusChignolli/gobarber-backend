@@ -6,4 +6,4 @@ build/
 tmp/*
 !tmp/.gitkeep
 postgres-data/
-coverage/
+coverage/*
